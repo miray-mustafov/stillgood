@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from project_1.common.models import Category
 from project_1.items.models import Item
 from django.core.paginator import Paginator, EmptyPage
 
@@ -14,3 +16,10 @@ def home_page(request):
         # 'is_owner': request.user ==
     }
     return render(request, template_name='common/home-page.html', context=context)
+
+
+def show_genres(request):
+
+    categories = Category.objects.all()
+    context = {'categories': categories}
+    return render(request, template_name='genres.html', context=context)

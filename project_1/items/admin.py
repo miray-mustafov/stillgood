@@ -17,6 +17,7 @@ class ItemAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'title',)
     list_filter = ('category', 'is_new', 'phone')
     search_fields = ('title', 'location',)
+    search_help_text = 'Search by title and location'
     list_editable = ('is_new',)
     list_per_page = 15
     inlines = [ItemImageInline]

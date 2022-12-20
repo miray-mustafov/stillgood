@@ -58,6 +58,16 @@ class ItemEditView(UpdateView):
     def get_success_url(self):
         return reverse_lazy('item details', kwargs={'pk': self.object.pk})
 
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        images = request.FILES.getlist('images')
+        ItemImage.objects.filter(item=self.object).delete()
+        for image in images:
+            ItemImage.objects.create(image=image, item=self.object)
+
+        return super().post(request, *args, **kwargs)
+
 
 class ItemDelete(DeleteView):
     template_name = 'items/item-delete.html'

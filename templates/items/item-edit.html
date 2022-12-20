@@ -1,20 +1,88 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load custom_filters %}
 
-    <h1 align="center">ITEM EDIT PAGE</h1>
-    <div class="item-edit-container container border border-dark rounded box ">
-        <form method="post" action="{% url 'item edit' pk=current_item.pk%}" enctype="multipart/form-data"> {#  #}
-            <div class="">
-                {% csrf_token %}
-                {{ form.as_p }}
+<form id="c-itemadd" method="post" action="{% url 'item edit' pk=current_item.pk%}" enctype="multipart/form-data">
+        <div class="container container-fluid form-group">
+        <h1 >EDIT ITEM</h1>
+            <div class="row">
 
-                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                    <button class="btn btn-edit" type="submit">Edit</button>
+                <div class="col-lg-6 item-add">
+                    <div class="box box-itemadd">
+
+                        <p>
+                            Title:
+                            {{ form.title|placeholder:'Title'}}
+                        </p>
+                        <p>
+                            Category:
+                            {{ form.category}}
+                        </p>
+                        <p>
+                            Price:
+                            {{ form.price.errors }}
+                            {{ form.price|placeholder:'BGN'}}
+                        </p>
+                        <p>
+                            New:
+                            {{ form.is_new}}
+                        </p>
+                        <p>
+                            Location:
+                            {{ form.location.errors }}
+                            {{ form.location|placeholder:'City, Street'}}
+                        </p>
+                        <p>
+                            Phone:
+                            {{ form.phone|placeholder:'08........'}}
+                        </p>
+                        <p>
+                            Email:
+                            {{ form.email|placeholder:'some@email.com'}}
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-6 item-add" >
+                    <div class="box box-itemadd">
+                        {% csrf_token %}
+                        <p style="font-weight: bold;">Change Main photo</p>
+                        {{ form.image_main }}
+
+                        <p>Change others</p>
+                        <input type="file" name="images" multiple>
+                        <p>
+                            {{ form.description|placeholder:'Description...'}}
+                        </p>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <button type="submit" class="btn btn-add">Edit</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </form>
+        </div>
 
 
-    </div>
+    </form>
+
+
+
+{#    <h1 align="center">ITEM EDIT PAGE</h1>#}
+{#    <div class="item-edit-container container border border-dark rounded box ">#}
+{#        <form method="post" action="{% url 'item edit' pk=current_item.pk%}" enctype="multipart/form-data"> {#  #}
+{#            <div class="">#}
+{#                {% csrf_token %}#}
+{#                {{ form.as_p }}#}
+{##}
+{#                <div class="d-grid gap-2 d-md-flex justify-content-md-center">#}
+{#                    <button class="btn btn-edit" type="submit">Edit</button>#}
+{#                </div>#}
+{#            </div>#}
+{#        </form>#}
+{##}
+{##}
+{#    </div>#}
 
 {% endblock %}

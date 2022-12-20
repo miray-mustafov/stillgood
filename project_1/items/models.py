@@ -1,9 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.utils.safestring import mark_safe
 
-from project_1.core.my_enums import Categories, Conditions
+from project_1.common.models import Category
 from project_1.core.my_validators import validate_location, validate_phone
 
 # ITEMS MODELS
@@ -25,11 +26,7 @@ class Item(models.Model):
         validators=[MinLengthValidator(MIN_LEN_TITLE)],
         blank=False,
     )
-    category = models.CharField(
-        choices=Categories.choices(),
-        max_length=Categories.max_len(),
-        blank=False,
-    )
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image_main = models.ImageField(upload_to='items_photos_mains', default='defaults/no-img.png')
     description = models.TextField()
     is_new = models.BooleanField(default=False, )
@@ -55,9 +52,17 @@ class Item(models.Model):
     class Meta:
         ordering = ['pk']
 
-    # a hack to display image in administration with fake tag
+    # to display image in administration with fake tag
     def get_image(self):
         return mark_safe(f'<img src="{self.image_main.url}" height="60"/>')
+
+    # TODO: SlUG
+    # slug = models.SlugField(unique=True, null=False, blank=True, editable=False)
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     if not self.slug:  # change on update or not
+    #         self.slug = slugify(f'{self.title}-{self.pk}')
+    #     return super().save(*args, **kwargs)
 
 
 class ItemImage(models.Model):

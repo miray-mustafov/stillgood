@@ -46,11 +46,12 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 item-add">
-                    <div class="box box-">
+                <div class="col-lg-6 item-add" >
+                    <div class="box box-itemadd">
                         {% csrf_token %}
                         <p style="font-weight: bold;">Select Main photo</p>
                         {{ form.image_main }}
+
                         <p>Select others</p>
                         <input type="file" name="images" multiple>
                         <p>
@@ -66,7 +67,6 @@
         </div>
 
 
-        </div>
     </form>
 
 {% endblock %}
