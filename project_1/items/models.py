@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator
 from django.db import models
+from django.utils.safestring import mark_safe
+
 from project_1.core.my_enums import Categories, Conditions
 from project_1.core.my_validators import validate_location, validate_phone
 
@@ -52,6 +54,10 @@ class Item(models.Model):
 
     class Meta:
         ordering = ['pk']
+
+    # a hack to display image in administration with fake tag
+    def get_image(self):
+        return mark_safe(f'<img src="{self.image_main.url}" height="60"/>')
 
 
 class ItemImage(models.Model):

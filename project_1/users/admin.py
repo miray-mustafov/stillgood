@@ -10,7 +10,7 @@ UserModel = get_user_model()
 class UserAdmin(auth_admin.UserAdmin):
     form = UserEditForm
     add_form = UserRegisterForm
-    list_display = ("username", 'id', "email", "first_name", "last_name", "is_staff")
+    list_display = ("username", 'id', "email", "first_name", "last_name", "is_staff", 'img')
     search_fields = ('user',)
 
     fieldsets = (

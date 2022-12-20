@@ -1,6 +1,8 @@
 from django.contrib.auth import models as auth_models
 from django.core import validators
 from django.db import models
+from django.utils.safestring import mark_safe
+
 from project_1.core.my_validators import validate_personal_names, validate_location, validate_phone
 from project_1.core.my_enums import Genders
 
@@ -63,3 +65,6 @@ class AppUser(auth_models.AbstractUser):
 
     class Meta:
         ordering = ['pk']
+
+    def img(self):
+        return mark_safe(f'<img src="{self.personal_photo.url}" height="60">')
