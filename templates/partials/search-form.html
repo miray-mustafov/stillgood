@@ -1,0 +1,8 @@
+
+<div class="d-flex form-control me-2 justify-content-end" role="search">
+    <form class="searchbar" method="post">
+        {% csrf_token %}
+        {{ search_form.query }}
+        <button class="btn" type="submit">Search</button>
+    </form>
+</div>
