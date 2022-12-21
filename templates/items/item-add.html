@@ -2,8 +2,6 @@
 {% block content %}
     {% load custom_filters %}
 
-
-
     <form id="c-itemadd" method="post" action="{% url 'item add' %}" enctype="multipart/form-data">
         <div class="container container-fluid form-group">
         <h1 >ADD ITEM</h1>
@@ -11,9 +9,11 @@
 
                 <div class="col-lg-6 item-add">
                     <div class="box box-itemadd">
-
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
                         <p>
                             Title:
+                            {{ form.title.errors }}
                             {{ form.title|placeholder:'Title'}}
                         </p>
                         <p>
@@ -50,7 +50,6 @@
 
                 <div class="col-lg-6 item-add" >
                     <div class="box box-itemadd">
-                        {% csrf_token %}
                         <p style="font-weight: bold;">Select Main photo</p>
                         {{ form.image_main }}
 

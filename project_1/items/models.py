@@ -67,10 +67,10 @@ class Item(models.Model):
     date_added = models.DateTimeField(auto_now_add=True, )
 
     def __str__(self):
-        return {self.title}
+        return self.title
 
     class Meta:
-        ordering = ['pk']
+        ordering = ['-pk']
 
     # to display image in administration with fake tag
     def get_image(self):

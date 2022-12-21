@@ -9,3 +9,6 @@ UserModel = get_user_model()
 class Favourite(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Favourite of {self.user.username} to {self.item}'

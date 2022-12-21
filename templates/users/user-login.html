@@ -5,13 +5,13 @@
 
     <div class="container box box-logreg">
         <form method="post" action="{% url 'user login' %}">
-            {% csrf_token %}
             {{ form.as_p }}
 
             <input type="hidden" name="next" value="{{ next }}">
             <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                 <button type="submit" class="btn">Login</button>
             </div>
+            {% csrf_token %}
         </form>
         <p>Don't have account? <a href="{% url 'user register' %}">Register</a></p>
     </div>

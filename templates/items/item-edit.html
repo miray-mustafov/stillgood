@@ -9,9 +9,11 @@
 
                 <div class="col-lg-6 item-add">
                     <div class="box box-itemadd">
+                        {% csrf_token %}
 
                         <p>
                             Title:
+                            {{ form.title.errors }}
                             {{ form.title|placeholder:'Title'}}
                         </p>
                         <p>
@@ -48,8 +50,8 @@
 
                 <div class="col-lg-6 item-add" >
                     <div class="box box-itemadd">
-                        {% csrf_token %}
                         <p style="font-weight: bold;">Change Main photo</p>
+
                         {{ form.image_main }}
 
                         <p>Change others</p>
