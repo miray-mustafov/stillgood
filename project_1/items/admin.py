@@ -1,6 +1,7 @@
 from django.contrib import admin
+from mptt.admin import DraggableMPTTAdmin
 
-from project_1.items.models import Item, ItemImage
+from project_1.items.models import Item, ItemImage, Category
 
 
 class ItemImageInline(admin.TabularInline):
@@ -26,3 +27,10 @@ class ItemAdmin(admin.ModelAdmin):
 @admin.register(ItemImage)
 class MultipleImageAdmin(admin.ModelAdmin):
     list_display = ('id',)
+
+@admin.register(Category)
+class CategoryAdmin(DraggableMPTTAdmin):
+    list_display = ('id', 'title', 'parent')
+    list_display_links = ('id', 'title',)
+    search_fields = ('title',)
+    search_help_text = 'search by category title'

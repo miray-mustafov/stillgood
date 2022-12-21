@@ -51,13 +51,13 @@
                            aria-expanded="false">
                             Link
                         </a>
-                        <ul class="dropdown-menu" style="background: #2D1A32">
-                            <li><a class="dropdown-item" href="#" style="color: beige">Action</a></li>
-                            <li><a class="dropdown-item" href="#" style="color: beige">Another action</a></li>
+                        <ul class="dropdown-menu" style="background: black">
+                            <li><a class="dropdown-item" href="#" style="color: #C9C9C9">Action</a></li>
+                            <li><a class="dropdown-item" href="#" style="color: #C9C9C9">Another action</a></li>
                             <li>
-                                <hr class="dropdown-divider" style="border-color: beige">
+                                <hr class="dropdown-divider" style="border-color: #C9C9C9">
                             </li>
-                            <li><a class="dropdown-item" href="#" style="color: beige">Something else here</a></li>
+                            <li><a class="dropdown-item" href="#" style="color: #C9C9C9">Something else here</a></li>
                         </ul>
                     </li>
 
@@ -69,7 +69,9 @@
             {% if request.user.is_authenticated %}
                 <ul class="nav justify-content-end">
                     <li class="nav-item float-left">
-                        <a class="nav-link" href="#">Favorites 0</a>
+                        <a class="nav-link" href="{% url 'list favourite items' %}">
+                            Favorites {{ request.user.favourite_set.all.count }}
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'user logout' %}">Logout</a>

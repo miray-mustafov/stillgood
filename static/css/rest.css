@@ -1,3 +1,15 @@
+.c-t{
+    color: #0a53be;
+    font-weight: bold;
+}
+
+#category-link{
+    color: black;
+}
+#category-link:hover{
+    color: dodgerblue;
+}
+
 .mark-mine {
     background: var(--my_color_markmine);
 }
@@ -26,7 +38,7 @@
     grid-template-columns: 0.5fr 0.5fr;
 }
 
-#home-container {
+.grid-sm-big{
     display: grid;
     grid-template-columns: 0.5fr 3fr;
 }
@@ -70,8 +82,13 @@
 
 
 .dropdown-item:hover {
-    background-color: beige;
-    color: #2D1A32;
+    background-color: #C9C9C9;
+    color: black!important;
+}
+
+#category-li:hover{
+    color: #0D6EFD!important;
+    font-weight: bold;
 }
 
 .item-edit-container{

@@ -11,13 +11,13 @@ def validate_personal_names(value):
 def validate_location(value):
     pattern = r'[A-Za-z0-9,\. ]+'
     if not re.match(pattern, value):
-        raise exceptions.ValidationError('Wrong location!')
+        raise exceptions.ValidationError('Wrong location! Don`t include symbols like !@#$')
 
 
 def validate_phone(value):
     pattern = '0[0-9]{9}'
     if not re.match(pattern, value):
-        raise exceptions.ValidationError('Wrong phone number!')
+        raise exceptions.ValidationError('Wrong phone number! Start with 0')
 
 # def validate_username(value):
 #     if value[0].isnumeric():

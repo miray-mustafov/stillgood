@@ -34,10 +34,12 @@
                         </p>
                         <p>
                             Phone:
+                            {{ form.phone.errors }}
                             {{ form.phone|placeholder:'08........'}}
                         </p>
                         <p>
                             Email:
+                            {{ form.email.errors }}
                             {{ form.email|placeholder:'some@email.com'}}
                         </p>
 

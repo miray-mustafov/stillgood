@@ -1,14 +1,33 @@
+from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator
-from django.db import models
-from django.template.defaultfilters import slugify
 from django.utils.safestring import mark_safe
 
-from project_1.common.models import Category
+from mptt.fields import TreeForeignKey
+from mptt.models import MPTTModel
 from project_1.core.my_validators import validate_location, validate_phone
 
 # ITEMS MODELS
 UserModel = get_user_model()
+
+
+class Category(MPTTModel):
+    title = models.CharField(unique=True, max_length=20)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+
+    class MPTTMeta:
+        order_insertion_by = ['title']
+
+    # def __str__(self):
+    #     return self.title
+
+    def __str__(self):
+        full_path = [self.title]
+        current_parent = self.parent
+        while current_parent is not None:
+            full_path.append(current_parent.title)
+            current_parent = current_parent.parent
+        return '/'.join(full_path[::-1])
 
 
 class Item(models.Model):
@@ -25,6 +44,7 @@ class Item(models.Model):
         max_length=MAX_LEN_TITLE,
         validators=[MinLengthValidator(MIN_LEN_TITLE)],
         blank=False,
+
     )
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image_main = models.ImageField(upload_to='items_photos_mains', default='defaults/no-img.png')
@@ -44,10 +64,10 @@ class Item(models.Model):
         blank=True,
     )
     email = models.EmailField(blank=True, )  # no need to be unique
-    date_added = models.DateField(auto_now=True, )
+    date_added = models.DateTimeField(auto_now_add=True, )
 
     def __str__(self):
-        return f'{self.pk} {self.title}'
+        return {self.title}
 
     class Meta:
         ordering = ['pk']

@@ -1,11 +1,12 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import DetailView, UpdateView, DeleteView
+
+from project_1.common.models import Favourite
 from project_1.items.models import ItemImage, Item
 
-from project_1.items.forms import ItemDetailsForm, ItemAddForm, ItemEditForm, ItemDeleteForm
-from django.core.paginator import Paginator, EmptyPage
+from project_1.items.forms import ItemAddForm, ItemEditForm
 
 UserModel = get_user_model()
 
@@ -45,6 +46,9 @@ class ItemDetails(DetailView):
 
         indicators = [i for i in range(1, len(images) + 1)]  # taking [1: len+1] indxs for the indicator buttons
         context['indicators'] = indicators
+
+        context['is_favoured'] = \
+            Favourite.objects.filter(user=self.request.user, item=self.object).first()
         return context
 
 
@@ -70,34 +74,11 @@ class ItemEditView(UpdateView):
 
 
 class ItemDelete(DeleteView):
+    context_object_name = 'current_item'
     template_name = 'items/item-delete.html'
     model = Item
     success_url = reverse_lazy('home page')
 
 
-# class ItemAddView(CreateView):
-#     context_object_name = 'item'
-#     template_name = 'items/item-add.html'
-#     # success_url = 'items/item-details.html'
-#     success_url = 'common/home-page.html'
-#     form_class = ItemAddForm
-#     model = Item
-#
-#     # override
-#     def form_valid(self, form):
-#         """If the form is valid, save the associated model."""
-#         self.object = form.save()
-#         return super().form_valid(form)
-
 def image_carousel(request):
     return render(request, template_name='image-carousel.html')
-
-#
-# def upload(request):
-#     if request.method == "POST":
-#         images = request.FILES.getlist('images')
-#         for image in images:
-#             ItemImage.objects.create(images=image)
-#
-#     images = ItemImage.objects.all()  # for edit later in item
-#     return render(request, 'multiple-image-demo.html', {'images': images})
