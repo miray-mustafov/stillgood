@@ -30,8 +30,3 @@ class UserEditForm(forms.ModelForm):
         widgets = {
             'location': forms.TextInput(attrs={'placeholder': 'Town, Street 1'}),
         }
-        # comment = forms.CharField(
-        #     widget=forms.Textarea(
-        #         attrs={'cols': 80, 'rows': 10,
-        #                'class': 'special',
-        #                'title': 'Add a comment'}))

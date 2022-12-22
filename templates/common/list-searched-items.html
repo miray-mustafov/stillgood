@@ -52,7 +52,8 @@
                                             class="text-muted">{{ item.date_added | timesince }}</small></p>
                                 </div>
                             </div>
-                            <a href="{% url 'item details' item.pk %}" class="btn">details
+                            <a href="{% url 'item details' username=item.user.username slug=item.slug %}"
+                               class="btn">details
                             </a>
                         </div>
                     </div>

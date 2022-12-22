@@ -50,11 +50,11 @@
             <!-- USER OWNER-->
             {% if is_owner %}
                 <!-- EDIT DELETE buttons-->
-                <a href="{% url 'item edit' pk=current_item.pk %}">
+                <a href="{% url 'item edit' username=current_item.user.username slug=current_item.slug %}">
                     <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}" alt="edit button">
                 </a>
 
-                <a href="{% url 'item delete' pk=current_item.pk %}">
+                <a href="{% url 'item delete' username=current_item.user.username slug=current_item.slug %}">
                     <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}" alt="bin button">
                 </a>
             {% else %}
@@ -111,7 +111,7 @@
             <h5>description: {{ current_item.description }}</h5>
 
             <!--todo MESSAGE-->
-            <input type="text" placeholder="send message" style="background-color: lightcoral">
+{#            <input type="text" placeholder="send message" style="background-color: lightcoral">#}
 
         </div>
     </div>

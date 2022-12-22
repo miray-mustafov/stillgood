@@ -72,8 +72,9 @@
                                     <i class="fas fa-clock"></i> {{ item.date_added | timesince }}</div>
                             </div>
                             <hr>
-                            <a href="{% url 'item details' pk=item.pk %}" class="btn stretched-link">Details</a>
-                        </div> {# username=item.user.username slug=item.slug #}
+                            <a href="{% url 'item details' username=item.user.username slug=item.slug %}"
+                               class="btn stretched-link">Details</a>
+                        </div>
 
                     </div>
                     {% endfor %}

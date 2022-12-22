@@ -2,7 +2,8 @@
 {% block content %}
 {% load custom_filters %}
 
-<form id="c-itemadd" method="post" action="{% url 'item edit' pk=current_item.pk%}" enctype="multipart/form-data">
+<form id="c-itemadd" method="post" action="{% url 'item edit' username=current_item.user.username slug=current_item.slug%}"
+      enctype="multipart/form-data">
         <div class="container container-fluid form-group">
         <h1 >EDIT ITEM</h1>
             <div class="row">

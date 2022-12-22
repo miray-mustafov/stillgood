@@ -61,7 +61,7 @@ class AppUser(auth_models.AbstractUser):
     email = models.EmailField(unique=True, blank=False, )
 
     def __str__(self):
-        return f'{self.username}'
+        return self.username
 
     class Meta:
         ordering = ['pk']

@@ -7,7 +7,7 @@ urlpatterns = (
     # path('add/', login_required(views.ItemAddView.as_view()), name='item add'),
     path('add/', login_required(views.item_add_view), name='item add'),
 
-    path('<int:pk>/', include([
+    path('<str:username>/<slug:slug>/', include([
         path('', views.ItemDetails.as_view(), name='item details'),
         path('edit/', login_required(views.ItemEditView.as_view()), name='item edit'),
         path('delete/', login_required(views.ItemDelete.as_view()), name='item delete'),

@@ -1,4 +1,3 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 from project_1.common.forms import SearchForm
@@ -32,6 +31,7 @@ def home_page(request):
                 'searched_items': searched_items,
                 'favourite_items_by_requser': favourite_items_by_requser,
                 'query': query,
+                'where': 'in all items',
             }
             return render(request, template_name='common/list-searched-items.html', context=context)
 
@@ -39,7 +39,7 @@ def home_page(request):
         'search_form': SearchForm(),
         'categories': categories,
         'items_recent': page_items_recent,
-        # 'is_owner': request.user ==
+        'where': 'in all items',
     }
     return render(request, template_name='common/home-page.html', context=context)
 
@@ -72,6 +72,7 @@ def list_categorized_items(request, pk, title):
                 'searched_items': searched_items,
                 'favourite_items_by_requser': favourite_items_by_requser,
                 'query': query,
+                'where': 'in current category',
             }
             return render(request, template_name='common/list-searched-items.html', context=context)
 
@@ -81,6 +82,7 @@ def list_categorized_items(request, pk, title):
         'items_categorized': items_categorized,
         'category_title': title,
         'favourite_items_by_requser': favourite_items_by_requser,
+        'where': 'in current category',
     }
     return render(request, template_name='common/list-categorized-items.html', context=context)
 

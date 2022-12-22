@@ -11,4 +11,4 @@ class Favourite(models.Model):
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'Favourite of {self.user.username} to {self.item}'
+        return f'Favourite of {self.user} to {self.item}'

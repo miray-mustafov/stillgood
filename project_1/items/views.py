@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
@@ -25,7 +24,7 @@ def item_add_view(request):
             for image in images:
                 ItemImage.objects.create(image=image, item=item)
 
-            return redirect('item details', pk=item.pk)
+            return redirect('item details', slug=item.slug, username=item.user.username)
 
     form = ItemAddForm(instance=request.user)
     context = {'form': form}
@@ -39,7 +38,7 @@ class ItemEditView(UpdateView):
     model = Item
 
     def get_success_url(self):
-        return reverse_lazy('item details', kwargs={'pk': self.object.pk})
+        return reverse_lazy('item details', kwargs={'slug': self.object.slug, 'username': self.object.user.username})
 
     def post(self, request, *args, **kwargs):
         current_item = self.get_object()

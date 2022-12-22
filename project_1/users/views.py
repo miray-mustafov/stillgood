@@ -46,7 +46,6 @@ class UserLogout(auth_views.LogoutView):
 
 
 class UserDelete(DeleteView):
-    #todo context_objname
     template_name = 'users/user-delete.html'
     model = UserModel
     success_url = reverse_lazy('home page')

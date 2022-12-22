@@ -3,6 +3,6 @@
     <form class="searchbar" method="post">
         {% csrf_token %}
         {{ search_form.query }}
-        <button class="btn" type="submit">Search</button>
+        <button class="btn" type="submit">Search {{ where }}</button>
     </form>
 </div>

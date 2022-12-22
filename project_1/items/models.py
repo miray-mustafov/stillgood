@@ -1,13 +1,13 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator
+from django.template.defaultfilters import slugify
 from django.utils.safestring import mark_safe
 
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 from project_1.core.my_validators import validate_location, validate_phone
 
-# ITEMS MODELS
 UserModel = get_user_model()
 
 
@@ -17,9 +17,6 @@ class Category(MPTTModel):
 
     class MPTTMeta:
         order_insertion_by = ['title']
-
-    # def __str__(self):
-    #     return self.title
 
     def __str__(self):
         full_path = [self.title]
@@ -65,6 +62,13 @@ class Item(models.Model):
     )
     email = models.EmailField(blank=True, )  # no need to be unique
     date_added = models.DateTimeField(auto_now_add=True, )
+    slug = models.SlugField(unique=True, null=False, blank=True, editable=False)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.slug:  # change on update or not
+            self.slug = slugify(f'{self.title}-{self.pk}')
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -75,14 +79,6 @@ class Item(models.Model):
     # to display image in administration with fake tag
     def get_image(self):
         return mark_safe(f'<img src="{self.image_main.url}" height="60"/>')
-
-    # TODO: SlUG
-    # slug = models.SlugField(unique=True, null=False, blank=True, editable=False)
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-    #     if not self.slug:  # change on update or not
-    #         self.slug = slugify(f'{self.title}-{self.pk}')
-    #     return super().save(*args, **kwargs)
 
 
 class ItemImage(models.Model):

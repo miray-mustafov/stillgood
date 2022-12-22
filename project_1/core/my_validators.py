@@ -19,6 +19,7 @@ def validate_phone(value):
     if not re.match(pattern, value):
         raise exceptions.ValidationError('Wrong phone number! Start with 0')
 
+
 # def validate_username(value):
 #     if value[0].isnumeric():
 #         raise exceptions.ValidationError('Username cannot start with number!')
