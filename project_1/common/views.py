@@ -1,50 +1,33 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-
 from project_1.common.forms import SearchForm
 from project_1.common.models import Favourite
 from project_1.items.models import Category, Item
 from django.core.paginator import Paginator, EmptyPage
 
+ITEMS_COUNT_PER_PAGE = 8
+ITEMS_RECENT_TO_SHOW = 50
+
 
 def home_page(request):
-    items_recent = Item.objects.all().order_by('-date_added')[:18]
+    items_recent = Item.objects.all().order_by('-date_added')[:ITEMS_RECENT_TO_SHOW]
     categories = Category.objects.all()
-    paginator = Paginator(items_recent, 9)
-    page = request.GET.get('page')
-    page_items_recent = paginator.get_page(page)
 
-    if request.method == 'POST':
-        search_form = SearchForm(request.POST)
-        if search_form.is_valid():
-            query = search_form.cleaned_data['query']
-            searched_items = Item.objects.filter(title__icontains=query)
-            categories = Category.objects.all()
-
-            if request.user.is_authenticated:
-                favourite_items_by_requser = [f.item_id for f in request.user.favourite_set.all()]
-            else:
-                favourite_items_by_requser = []
-
-            context = {
-                'search_form': search_form,
-                'categories': categories,
-                'searched_items': searched_items,
-                'favourite_items_by_requser': favourite_items_by_requser,
-                'query': query,
-                'where': 'in all items',
-            }
-            return render(request, template_name='common/list-searched-items.html', context=context)
+    p = Paginator(items_recent, ITEMS_COUNT_PER_PAGE)
+    page_num = request.GET.get('page', default=1)
+    try:
+        page_items = p.page(page_num)
+    except EmptyPage:
+        page_items = p.page(1)
 
     context = {
-        'search_form': SearchForm(),
         'categories': categories,
-        'items_recent': page_items_recent,
+        'items': page_items,
         'where': 'in all items',
     }
     return render(request, template_name='common/home-page.html', context=context)
 
 
-# todo change to list_categorized
 def list_categorized_items(request, pk, title):
     categories = Category.objects.all()
     items_categorized = Item.objects.filter(category_id=pk)
@@ -54,12 +37,30 @@ def list_categorized_items(request, pk, title):
     else:
         favourite_items_by_requser = []
 
+    context = {
+        'categories': categories,
+        'items': items_categorized,
+        'category_title': title,
+        'favourite_items_by_requser': favourite_items_by_requser,
+    }
+    return render(request, template_name='common/list-categorized-items.html', context=context)
+
+
+def search(request):
     if request.method == 'POST':
         search_form = SearchForm(request.POST)
+
         if search_form.is_valid():
             query = search_form.cleaned_data['query']
-            searched_items = items_categorized.filter(title__icontains=query)
+            categ_id = search_form.cleaned_data['categ_id']
+            where = 'in the website'
             categories = Category.objects.all()
+
+            if categ_id == 0:
+                searched_items = Item.objects.filter(title__icontains=query)
+            else:
+                where = f'in {categories.get(pk=categ_id).title} category'
+                searched_items = Item.objects.filter(title__icontains=query, category__id=categ_id)
 
             if request.user.is_authenticated:
                 favourite_items_by_requser = [f.item_id for f in request.user.favourite_set.all()]
@@ -67,24 +68,16 @@ def list_categorized_items(request, pk, title):
                 favourite_items_by_requser = []
 
             context = {
-                'search_form': search_form,
                 'categories': categories,
-                'searched_items': searched_items,
+                'items': searched_items,
                 'favourite_items_by_requser': favourite_items_by_requser,
                 'query': query,
-                'where': 'in current category',
+                'where': where,
             }
             return render(request, template_name='common/list-searched-items.html', context=context)
 
-    context = {
-        'search_form': SearchForm(),
-        'categories': categories,
-        'items_categorized': items_categorized,
-        'category_title': title,
-        'favourite_items_by_requser': favourite_items_by_requser,
-        'where': 'in current category',
-    }
-    return render(request, template_name='common/list-categorized-items.html', context=context)
+    return HttpResponseRedirect('/')
+
 
 def add_a_favourite(request, item_pk):
     # with login_required works improperly
@@ -104,14 +97,30 @@ def add_a_favourite(request, item_pk):
     return redirect(request.META['HTTP_REFERER'] + f'#{item_pk}')
 
 
-def list_favourite_items(request):
+def list_favourite_items(request, username):
     categories = Category.objects.all()
-
-    # todo: create partial template for hearts
     favourite_items = [f.item for f in request.user.favourite_set.all()]
+
+    p = Paginator(favourite_items, ITEMS_COUNT_PER_PAGE)
+    page_num = request.GET.get('page', default=1)
+    try:
+        page_items = p.page(page_num)
+    except EmptyPage:
+        page_items = p.page(1)
+
     context = {
         'categories': categories,
-        'favourite_items': favourite_items,
+        'items': page_items,
     }
 
-    return render(request, template_name='common/favourites.html', context=context)
+    return render(request, template_name='common/list-favourite-items.html', context=context)
+
+# def paginate(request, items):
+#     p = Paginator(items, ITEMS_COUNT_PER_PAGE)
+#     page_num = request.GET.get('page', default=1)
+#     try:
+#         page_items = p.page(page_num)
+#     except EmptyPage:
+#         page_items = p.page(1)
+#
+#     return page_items

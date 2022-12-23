@@ -4,8 +4,8 @@
 <ul class="dropdown">
     {% recursetree categories %}
         <li>
-            <a id="category-li" href="{% url 'list categorized items' pk=node.pk title=node.title%}"
-               style="color: black">{{ node.title }}</a>
+            <a class="category-li" href="{% url 'list categorized items' pk=node.pk title=node.title%}"
+               >{{ node.title }}</a>
             {% if not node.is_leaf_node %}
                 <ul class="children">
                     {{ children }}

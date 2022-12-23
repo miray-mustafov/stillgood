@@ -1,8 +1,13 @@
+<form class="d-flex" action="{% url 'search' %}" method="post">
+    {% csrf_token %}
 
-<div class="d-flex form-control me-2 justify-content-end" role="search">
-    <form class="searchbar" method="post">
-        {% csrf_token %}
-        {{ search_form.query }}
-        <button class="btn" type="submit">Search {{ where }}</button>
-    </form>
-</div>
+    <select class="" name="categ_id" aria-label="Categorize">
+        <option value="0">All Categories</option>
+        {% for c in categories %}
+            <option value="{{ c.id }}">{{ c.title }}</option>
+        {% endfor %}
+    </select>
+    <input placeholder="Search by item title..." class="form-control me-2"
+           type="search" name="query" aria-label="Search">
+    <button class="btn" type="submit">Search</button>
+</form>

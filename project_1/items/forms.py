@@ -1,9 +1,7 @@
 from django import forms
-
 from project_1.items.models import Item
 
 
-# todo base
 class ItemBaseForm(forms.ModelForm):
     class Meta:
         model = Item

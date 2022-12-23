@@ -9,9 +9,9 @@
 
         <div class="container">
 
-            {% if favourite_items %}
-                <h3 class="text-center mb-3">Your favorites</h3>
-                {% for item in favourite_items %}
+            {% if items %}
+                <h3 class="text-center mb-3 result-message">Your favorites</h3>
+                {% for item in items %}
                     <div class="card mb-3
                         {% if request.user.is_authenticated and request.user == item.user %}
                         mark-mine
@@ -31,7 +31,7 @@
                                     </p>
                                     <p>
                                         <a href="{% url 'add a favourite' item_pk=item.pk %}">
-                                            {% if item in favourite_items %}
+                                            {% if item in items %}
                                                 {% include 'partials/heart-red.html' %}
                                             {% else %}
                                                 {% include 'partials/heart-empty.html' %}
@@ -54,6 +54,8 @@
                         </div>
                     </div>
                 {% endfor %}
+
+{#                {% include 'partials/prev-next-buttons.html' %}#}
 
             {% else %}
                 <h3 class="text-center mb-3 p-lg-5"
