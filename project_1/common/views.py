@@ -55,8 +55,15 @@ def search(request):
             categ_id = search_form.cleaned_data['categ_id']
             where = 'in the website'
             categories = Category.objects.all()
+            search_query = f'"{query}"'
 
-            if categ_id == 0:
+            if query == '@' and categ_id == 0: # '@' signals the case where search input was left blank, so we filter by category only
+                return HttpResponseRedirect('/')
+            elif query == '@':
+                search_query = ''
+                where = f'{categories.get(pk=categ_id).title} category'
+                searched_items = Item.objects.filter(category__id=categ_id)
+            elif categ_id == 0:
                 searched_items = Item.objects.filter(title__icontains=query)
             else:
                 where = f'in {categories.get(pk=categ_id).title} category'
@@ -71,7 +78,7 @@ def search(request):
                 'categories': categories,
                 'items': searched_items,
                 'favourite_items_by_requser': favourite_items_by_requser,
-                'query': query,
+                'query': f'{search_query}',
                 'where': where,
             }
             return render(request, template_name='common/list-searched-items.html', context=context)

@@ -3,9 +3,17 @@
 
     <select class="" name="categ_id" aria-label="Categorize">
         <option value="0">All Categories</option>
-        {% for c in categories %}
-            <option value="{{ c.id }}">{{ c.title }}</option>
-        {% endfor %}
+        {% load mptt_tags %}
+        {% recursetree categories %}
+            {% if node.is_leaf_node %}
+                <option value="{{ node.id }}">{{ node.title }}</option>
+            {% endif %}
+            {% if not node.is_leaf_node %}
+                <optgroup label="{{ node.title }}">
+                    {{ children }}
+                </optgroup>
+            {% endif %}
+        {% endrecursetree %}
     </select>
     <input placeholder="Search by item title..." class="form-control me-2"
            type="search" name="query" aria-label="Search">
