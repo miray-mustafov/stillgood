@@ -11,7 +11,7 @@ class ItemImageInline(admin.TabularInline):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'user', 'is_new', 'get_image',)
+    list_display = ('id', 'title', 'user', 'is_new', 'get_image', 'date_added')
     list_display_links = ('id', 'title',)
     list_filter = ('category', 'is_new', 'phone',)
     search_fields = ('title', 'location',)

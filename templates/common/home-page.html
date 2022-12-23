@@ -28,13 +28,12 @@
                             <img class="card-img-top" src="{{ item.image_main.url }}" alt="age">
                             <div class="card-img-overlay">
                                 <h2>
-                                    <span class="badge badge-secondary text-white">BGN {{ item.price|intcomma }}</span>
+                                    <span class="badge badge-secondary text-white">{{ item.price|intcomma }} BGN</span>
                                 </h2>
                             </div>
                             <div class="card-body">
                                 <div class="text-center">
                                     <h4 class="text-primary">{{ item.title }}</h4>
-
 
                                     {% if item.location %}
                                         <p>
@@ -43,6 +42,15 @@
                                     {% endif %}
                                 </div>
                                 <hr>
+                                <div class="row py-2 text-secondary">
+                                    <div class="form-check">
+                                        <input class="form-check-input my-isnew" type="checkbox" value=""
+                                               id="flexCheckChecked" {% if item.is_new %}checked{% endif %}>
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            new
+                                        </label>
+                                    </div>
+                                </div>
                                 <div class="row py-2 text-secondary">
                                     <div class="col-8">
                                         <i class="fas fa-th-large"></i> Category:{{ item.category }}

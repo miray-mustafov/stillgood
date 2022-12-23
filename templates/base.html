@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>StillGood</title>
-    <link rel="stylesheet" href="{% static 'css/all-styles.css'%}">
+    <link rel="stylesheet" href="{% static 'css/all-styles.css' %}">
     <link rel="icon" href={% static "images/sg-logo.svg" %}>
 </head>
 
@@ -16,7 +16,7 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'home page' %}">
             <img src="{% static "images/sg-logo.svg" %}" alt="logo" class="d-inline-block align-text-center"
-                    height="50" width="50">
+                 height="50" width="50">
             StillGood
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
@@ -45,21 +45,7 @@
                         <a class="nav-link" href="{% url 'user details' pk=request.user.pk %}">Profile</a>
                     </li>
 
-                    <li class="nav-item dropdown">
 
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            Link
-                        </a>
-                        <ul class="dropdown-menu" style="background: black">
-                            <li><a class="dropdown-item" href="#" style="color: #C9C9C9">Action</a></li>
-                            <li><a class="dropdown-item" href="#" style="color: #C9C9C9">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider" style="border-color: #C9C9C9">
-                            </li>
-                            <li><a class="dropdown-item" href="#" style="color: #C9C9C9">Something else here</a></li>
-                        </ul>
-                    </li>
 
                     <li class="nav-item welcome position-absolute top-50 start-50 translate-middle">
                         Welcome, {{ request.user.username }}!
@@ -69,7 +55,7 @@
             {% if request.user.is_authenticated %}
                 <ul class="nav justify-content-end">
                     <li class="nav-item float-left">
-                        <a class="nav-link" href="{% url 'list favourite items' username=request.user.username%}">
+                        <a class="nav-link" href="{% url 'list favourite items' username=request.user.username %}">
                             Favorites {{ request.user.favourite_set.all.count }}
                         </a>
                     </li>
@@ -89,7 +75,6 @@
 </main>
 
 
-
 <footer style="text-align: center">
     © 2022 STILL GOOD
     <span style="float: left"> phone: +359 88 9357 231</span>
@@ -99,3 +84,19 @@
 <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
 </body>
 </html>
+
+{#<li class="nav-item dropdown">#}
+{##}
+{#    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"#}
+{#       aria-expanded="false">#}
+{#        Link#}
+{#    </a>#}
+{#    <ul class="dropdown-menu" style="background: black">#}
+{#        <li><a class="dropdown-item" href="#" style="color: #C9C9C9">Action</a></li>#}
+{#        <li><a class="dropdown-item" href="#" style="color: #C9C9C9">Another action</a></li>#}
+{#        <li>#}
+{#            <hr class="dropdown-divider" style="border-color: #C9C9C9">#}
+{#        </li>#}
+{#        <li><a class="dropdown-item" href="#" style="color: #C9C9C9">Something else here</a></li>#}
+{#    </ul>#}
+{#</li>#}
