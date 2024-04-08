@@ -108,16 +108,9 @@ def list_favourite_items(request, username):
     categories = Category.objects.all()
     favourite_items = [f.item for f in request.user.favourite_set.all()]
 
-    p = Paginator(favourite_items, ITEMS_COUNT_PER_PAGE)
-    page_num = request.GET.get('page', default=1)
-    try:
-        page_items = p.page(page_num)
-    except EmptyPage:
-        page_items = p.page(1)
-
     context = {
         'categories': categories,
-        'items': page_items,
+        'items': favourite_items,
     }
 
     return render(request, template_name='common/list-favourite-items.html', context=context)
