@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'mptt',
 ]
 # TEST new line
+# new test
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
