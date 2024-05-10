@@ -1,0 +1,16 @@
+# cache
+__pycache__/
+
+#others
+.idea/
+hidden.py
+secret_key.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
