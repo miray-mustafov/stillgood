@@ -5,7 +5,7 @@ from project_1.common.models import Favourite
 from project_1.items.models import Category, Item
 from django.core.paginator import Paginator, EmptyPage
 
-ITEMS_COUNT_PER_PAGE = 8
+ITEMS_COUNT_PER_PAGE = 5
 ITEMS_RECENT_TO_SHOW = 50
 
 
