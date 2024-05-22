@@ -8,10 +8,9 @@ Resale platform enabling users to buy and sell second-hand items.
 * [Features](#features)
 
 ## Video
-[Watch the Demo Video Here](https://youtu.be/jGtYaj06EzY)
+[Watch the Demo Video on Youtube](https://youtu.be/jGtYaj06EzY)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/jGtYaj06EzY?si=ZR07oNb5Q-iA6t2y&amp;start=7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jGtYaj06EzY?si=dpMlSSZxosDySat1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## Setup
 #### Make sure:
